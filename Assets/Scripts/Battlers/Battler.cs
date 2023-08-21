@@ -39,4 +39,13 @@ public class Battler : MonoBehaviour
         IsSubmitted = true;
         OnSubmitAction?.Invoke();
     }
+
+    public void RandomSubmit()
+    {
+        Card card = hand.RandomPop();
+        submitPosition.Set(card);
+        IsSubmitted = true;
+        OnSubmitAction?.Invoke();
+        hand.ResetPosition();
+    }
 }

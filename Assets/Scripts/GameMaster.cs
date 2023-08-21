@@ -18,16 +18,27 @@ public class GameMaster : MonoBehaviour
     void Setup()
     {
         player.OnSubmitAction = SubmitedAction;
+        enemy.OnSubmitAction = SubmitedAction;
         SendCardsTo(player);
         SendCardsTo(enemy);
     }
 
     void SubmitedAction()
     {
-        if (player.IsSubmitted)
+        if(player.IsSubmitted && enemy.IsSubmitted)
         {
             submitButton.SetActive(false);
-            // enemyからカードを出す
+            // 勝利判定
+        }
+        else if (player.IsSubmitted)
+        {
+            submitButton.SetActive(false);
+
+            enemy.RandomSubmit();
+        }
+        else if (enemy.IsSubmitted)
+        {
+            // playerの提出を待つ
         }
     }
 
