@@ -9,6 +9,11 @@ public class Battler : MonoBehaviour
     [SerializeField] SubmitPosition submitPosition;
 
     public bool IsSubmitted { get; private set; }
+    public bool IsFirstSubmit { get; set; }
+    public bool IsAddNumberMode { get; set; }
+
+    private int AddNumber => IsAddNumberMode ? 2 : 0;
+    public int EffectedNumber => SubmitCard.Base.Number + AddNumber;
 
     public UnityAction OnSubmitAction;
 
