@@ -25,7 +25,7 @@ public class GameMaster : MonoBehaviour
         for (int i = 0; i < 8; i++)
         {
             var card = cardGenerator.Spawn(i);
-            battler.Hand.Add(card);
+            battler.SetCardToHand(card);
         }
         battler.Hand.ResetPosition();
     }
