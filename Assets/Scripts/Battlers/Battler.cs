@@ -14,6 +14,7 @@ public class Battler : MonoBehaviour
 
     public BattlerHand Hand => hand;
     public Card SubmitCard => submitPosition.SubmitCard;
+    public int Life { get; set; }
 
     public void SetCardToHand(Card card)
     {
