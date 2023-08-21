@@ -8,7 +8,12 @@ public class GameMaster : MonoBehaviour
     [SerializeField] Battler enemy;
     [SerializeField] CardGenerator cardGenerator;
     [SerializeField] GameObject submitButton;
+    RuleBook ruleBook;
 
+    private void Awake()
+    {
+        ruleBook = GetComponent<RuleBook>();
+    }
     private void Start()
     {
         Setup();
@@ -28,7 +33,7 @@ public class GameMaster : MonoBehaviour
         if(player.IsSubmitted && enemy.IsSubmitted)
         {
             submitButton.SetActive(false);
-            // 勝利判定
+            StartCoroutine(CardsBattle());
         }
         else if (player.IsSubmitted)
         {
@@ -50,5 +55,21 @@ public class GameMaster : MonoBehaviour
             battler.SetCardToHand(card);
         }
         battler.Hand.ResetPosition();
+    }
+
+    IEnumerator CardsBattle()
+    {
+        yield return new WaitForSeconds(1f);
+        var result = ruleBook.GetResult(player, enemy);
+        Debug.Log(result);
+        yield return new WaitForSeconds(1f);
+        SetupNextTurn();
+    }
+
+    void SetupNextTurn()
+    {
+        player.SetupNextTurn();
+        enemy.SetupNextTurn();
+        submitButton.SetActive(true);
     }
 }
