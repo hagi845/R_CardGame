@@ -283,9 +283,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2073758366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2073758368}
+  - component: {fileID: 2073758367}
+  m_Layer: 0
+  m_Name: CardGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2073758367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073758366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 122ee658f8218474382c1ac1b775b784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardBases:
+  - {fileID: 11400000, guid: 454b74e5c612f43e8ab5151403ee9448, type: 2}
+  - {fileID: 11400000, guid: 7e1ab67377eaa469781e4992d71014e4, type: 2}
+  - {fileID: 11400000, guid: 407256a797b914219ba0e8ead62174e9, type: 2}
+  - {fileID: 11400000, guid: 7337828b9fb4944cca49035d31d3410c, type: 2}
+  - {fileID: 11400000, guid: 1be16320e4d644c87a26564394b0be35, type: 2}
+  - {fileID: 11400000, guid: 592c056e07d8446ba9fab6b052c3f749, type: 2}
+  - {fileID: 11400000, guid: 4ec3b7cdda7b74c00ad4638cefb34014, type: 2}
+  - {fileID: 11400000, guid: 1148835e066134af484fe4cdc9a49925, type: 2}
+  cardPrefab: {fileID: -6547344020819363548, guid: 658ce86c497ac4639ae87d0155dfe622, type: 3}
+--- !u!4 &2073758368
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073758366}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 708045940}
+  - {fileID: 2073758368}
