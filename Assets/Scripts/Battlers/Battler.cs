@@ -12,7 +12,8 @@ public class Battler : MonoBehaviour
 
     public UnityAction OnSubmitAction;
 
-    public BattlerHand Hand { get => hand;}
+    public BattlerHand Hand => hand;
+    public Card SubmitCard => submitPosition.SubmitCard;
 
     public void SetCardToHand(Card card)
     {
@@ -47,5 +48,11 @@ public class Battler : MonoBehaviour
         IsSubmitted = true;
         OnSubmitAction?.Invoke();
         hand.ResetPosition();
+    }
+
+    public void SetupNextTurn()
+    {
+        IsSubmitted = false;
+        submitPosition.DeleteCard();
     }
 }
