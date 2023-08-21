@@ -96,8 +96,38 @@ public class GameMaster : MonoBehaviour
 
         gameUI.Showlifes(player.Life, enemy.Life);
         yield return new WaitForSeconds(1f);
-        SetupNextTurn();
+
+        if (player.Life <= 0 || enemy.Life <= 0 )
+        {
+            ShowResult(result);
+        }
+        else
+        {
+            SetupNextTurn();
+        }
     }
+
+    void ShowResult(Result result)
+    {
+        if(result == Result.GameWin)
+        {
+            gameUI.ShowGameResult("WIN");
+        }
+        else if (result == Result.GameLose)
+        {
+            gameUI.ShowGameResult("WIN");
+        }
+        else if (player.Life <= 0 || enemy.Life <= 0)
+        {
+            gameUI.ShowGameResult("LOSE");
+        }
+        else if(enemy.Life <= 0)
+        {
+            gameUI.ShowGameResult("WIN");
+        }
+
+    }
+
 
     void SetupNextTurn()
     {
