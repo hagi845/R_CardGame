@@ -84,7 +84,7 @@ public class GameMaster : MonoBehaviour
                 player.Life--;
                 break;
             case Result.TurnLose2:
-                gameUI.ShowTurnResult("WIN");
+                gameUI.ShowTurnResult("LOSE");
                 player.Life -= 2;
                 break;
             case Result.TurnDraw:
@@ -95,9 +95,9 @@ public class GameMaster : MonoBehaviour
         }
 
         gameUI.Showlifes(player.Life, enemy.Life);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
-        if (player.Life <= 0 || enemy.Life <= 0 )
+        if (result == Result.GameWin || result == Result.GameLose || player.Life <= 0 || enemy.Life <= 0 )
         {
             ShowResult(result);
         }
@@ -125,9 +125,7 @@ public class GameMaster : MonoBehaviour
         {
             gameUI.ShowGameResult("WIN");
         }
-
     }
-
 
     void SetupNextTurn()
     {
@@ -135,5 +133,15 @@ public class GameMaster : MonoBehaviour
         enemy.SetupNextTurn();
         gameUI.SetupNextTurn();
         submitButton.SetActive(true);
+
+        if (enemy.IsFirstSubmit)
+        {
+            enemy.RandomSubmit();
+            enemy.IsFirstSubmit = false;    
+        }
+        if (player.IsFirstSubmit)
+        {
+            // TODO: playerが先に出す
+        }
     }
 }
