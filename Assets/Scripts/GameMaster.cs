@@ -30,8 +30,8 @@ public class GameMaster : MonoBehaviour
         enemy.Life = 4;
         player.OnSubmitAction = SubmitedAction;
         enemy.OnSubmitAction = SubmitedAction;
-        SendCardsTo(player);
-        SendCardsTo(enemy);
+        SendCardsTo(player,false);
+        SendCardsTo(enemy,true);
     }
 
     void SubmitedAction()
@@ -53,11 +53,11 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-    void SendCardsTo(Battler battler)
+    void SendCardsTo(Battler battler, bool isEnemy)
     {
         for (int i = 0; i < 8; i++)
         {
-            var card = cardGenerator.Spawn(i);
+            var card = cardGenerator.Spawn(i,isEnemy);
             battler.SetCardToHand(card);
         }
         battler.Hand.ResetPosition();
@@ -66,6 +66,8 @@ public class GameMaster : MonoBehaviour
     IEnumerator CardsBattle()
     {
         yield return new WaitForSeconds(1f);
+        enemy.SubmitCard.Open();
+        yield return new WaitForSeconds(0.7f);
         var result = ruleBook.GetResult(player, enemy);
 
         switch (result)
