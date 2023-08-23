@@ -9,6 +9,7 @@ public class GameMaster : MonoBehaviour
     [SerializeField] Battler enemy;
     [SerializeField] CardGenerator cardGenerator;
     [SerializeField] GameObject submitButton;
+    [SerializeField] GameObject nextButton;
     [SerializeField] GameUI gameUI;
 
     RuleBook ruleBook;
@@ -26,6 +27,7 @@ public class GameMaster : MonoBehaviour
     void Setup()
     {
         gameUI.Init();
+        nextButton.SetActive(false);
         player.Life = 4;
         enemy.Life = 4;
         player.OnSubmitAction = SubmitedAction;
@@ -63,14 +65,16 @@ public class GameMaster : MonoBehaviour
         battler.Hand.ResetPosition();
     }
 
+    Result _gameResult;
+
     IEnumerator CardsBattle()
     {
         yield return new WaitForSeconds(1f);
         enemy.SubmitCard.Open();
         yield return new WaitForSeconds(0.7f);
-        var result = ruleBook.GetResult(player, enemy);
+        _gameResult = ruleBook.GetResult(player, enemy);
 
-        switch (result)
+        switch (_gameResult)
         {
             case Result.TurnWin:
             case Result.GameWin:
@@ -97,12 +101,17 @@ public class GameMaster : MonoBehaviour
                 break;
         }
 
+        nextButton.SetActive(true);
+        Debug.Log("nextButton: true");
+        
         gameUI.Showlifes(player.Life, enemy.Life);
-        yield return new WaitForSeconds(2f);
+    }
 
-        if (result == Result.GameWin || result == Result.GameLose || player.Life <= 0 || enemy.Life <= 0 )
+    public void OnNextButton()
+    {
+        if (_gameResult == Result.GameWin || _gameResult == Result.GameLose || player.Life <= 0 || enemy.Life <= 0)
         {
-            ShowResult(result);
+            ShowResult(_gameResult);
         }
         else
         {
@@ -136,6 +145,8 @@ public class GameMaster : MonoBehaviour
         enemy.SetupNextTurn();
         gameUI.SetupNextTurn();
         submitButton.SetActive(true);
+        nextButton.SetActive(false);
+        Debug.Log("nextButton: false");
 
         if (enemy.IsFirstSubmit)
         {
