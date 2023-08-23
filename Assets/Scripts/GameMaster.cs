@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour
 {
@@ -144,4 +145,15 @@ public class GameMaster : MonoBehaviour
             // TODO: playerが先に出す
         }
     }
+
+    public void OnRetryButton()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    public void OnTitleButton()
+    {
+        SceneManager.LoadScene("Title");
+    }
+
 }
