@@ -68,12 +68,12 @@ public class RuleBook : MonoBehaviour
 
         if (!ministerEffect)
         {
-            if (playerBase.Number > enemyBase.Number)
+            if (player.EffectedNumber > enemy.EffectedNumber)
             {
                 if (reverseEffect) return Result.TurnLose;
                 return Result.TurnWin;
             }
-            if (playerBase.Number < enemyBase.Number)
+            if (player.EffectedNumber < enemy.EffectedNumber)
             {
                 if (reverseEffect) return Result.TurnWin;
                 return Result.TurnLose;
@@ -81,7 +81,7 @@ public class RuleBook : MonoBehaviour
         }
         else
         {
-            if (playerBase.Number > enemyBase.Number)
+            if (player.EffectedNumber > enemy.EffectedNumber)
             {
                 if (reverseEffect)
                 {
@@ -97,7 +97,7 @@ public class RuleBook : MonoBehaviour
                 }
                 return Result.TurnWin;
             }
-            else if (playerBase.Number < enemyBase.Number)
+            else if (player.EffectedNumber < enemy.EffectedNumber)
             {
                 if (reverseEffect)
                 {
