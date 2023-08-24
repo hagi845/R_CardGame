@@ -10,11 +10,19 @@ public class GameUI : MonoBehaviour
     [SerializeField] Text enemyLifeText;
     [SerializeField] GameObject resultPanel;
     [SerializeField] Text resultText;
+    [SerializeField] GameObject playerAddNumberObj;
+    [SerializeField] GameObject enemyAddNumberObj;
 
     public void Init()
     {
         turnResultText.gameObject.SetActive(false);
         resultPanel.SetActive(false);
+    }
+
+    public void UpdateAddNumber(bool isPlayerAddNumber,bool isEnemyAddNumber)
+    {
+        playerAddNumberObj.SetActive(isPlayerAddNumber);
+        enemyAddNumberObj.SetActive(isEnemyAddNumber);
     }
 
     public void Showlifes(int playerLife, int enemyLife)

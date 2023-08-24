@@ -30,6 +30,7 @@ public class GameMaster : MonoBehaviour
         nextButton.SetActive(false);
         player.Life = 4;
         enemy.Life = 4;
+        gameUI.UpdateAddNumber(player.IsAddNumberMode, enemy.IsAddNumberMode);
         player.OnSubmitAction = SubmitedAction;
         enemy.OnSubmitAction = SubmitedAction;
         SendCardsTo(player,false);
@@ -72,7 +73,16 @@ public class GameMaster : MonoBehaviour
         yield return new WaitForSeconds(1f);
         enemy.SubmitCard.Open();
         yield return new WaitForSeconds(0.7f);
+
+        // TODO:　応急処置
+        var playerIsAddNumberMode = player.IsAddNumberMode;
+        var enemyIsAddNumberMode = enemy.IsAddNumberMode;
+
         _gameResult = ruleBook.GetResult(player, enemy);
+
+        // TODO:　応急処置
+        if (playerIsAddNumberMode) player.IsAddNumberMode = false;
+        if (enemyIsAddNumberMode) enemy.IsAddNumberMode = false;
 
         switch (_gameResult)
         {
@@ -102,14 +112,13 @@ public class GameMaster : MonoBehaviour
         }
 
         nextButton.SetActive(true);
-        Debug.Log("nextButton: true");
         
         gameUI.Showlifes(player.Life, enemy.Life);
     }
 
     public void OnNextButton()
     {
-        if (_gameResult == Result.GameWin || _gameResult == Result.GameLose || player.Life <= 0 || enemy.Life <= 0)
+        if (player.Hand.IsEmpty || _gameResult == Result.GameWin || _gameResult == Result.GameLose || player.Life <= 0 || enemy.Life <= 0)
         {
             ShowResult(_gameResult);
         }
@@ -127,15 +136,27 @@ public class GameMaster : MonoBehaviour
         }
         else if (result == Result.GameLose)
         {
-            gameUI.ShowGameResult("WIN");
+            gameUI.ShowGameResult("LOSE");
         }
-        else if (player.Life <= 0 || enemy.Life <= 0)
+        else if (player.Life <= 0)
         {
             gameUI.ShowGameResult("LOSE");
         }
         else if(enemy.Life <= 0)
         {
             gameUI.ShowGameResult("WIN");
+        }
+        else if(player.Life > enemy.Life)
+        {
+            gameUI.ShowGameResult("WIN");
+        }
+        else if (player.Life < enemy.Life)
+        {
+            gameUI.ShowGameResult("LOSE");
+        }
+        else 
+        {
+            gameUI.ShowGameResult("DRAW");
         }
     }
 
@@ -146,12 +167,13 @@ public class GameMaster : MonoBehaviour
         gameUI.SetupNextTurn();
         submitButton.SetActive(true);
         nextButton.SetActive(false);
-        Debug.Log("nextButton: false");
+        gameUI.UpdateAddNumber(player.IsAddNumberMode, enemy.IsAddNumberMode);
 
         if (enemy.IsFirstSubmit)
         {
             enemy.RandomSubmit();
-            enemy.IsFirstSubmit = false;    
+            enemy.IsFirstSubmit = false;
+            enemy.SubmitCard.Open();
         }
         if (player.IsFirstSubmit)
         {
